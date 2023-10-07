@@ -27,7 +27,7 @@ const MonthGraph = () => {
   useEffect(() => {
     fetchMonthGraph();
   }, []);
-
+  
   return (
     <Container>
       <TitleContainer>
