@@ -20,51 +20,53 @@ const getTumblyName = level => {
   }
 };
 
-const RankItem = ({ level, depart, percent, total, name, rank }) => {
+const RankModalItem = ({ level, depart, percent, name, total, rank }) => {
   return (
     <Container>
-      <Profile>
-        <img src={getImage(level)} alt="profile" />
-        <Ranking>
-          <pre>{rank}</pre>
-        </Ranking>
-      </Profile>
-      <DepInfoContainer>
-        <FlexBox>
+      <FlexBox>
+        <Profile>
+          <img src={getImage(level)} alt="profile" />
+          <Ranking>
+            <pre>{rank}</pre>
+          </Ranking>
+        </Profile>
+        <DepInfoContainer>
           <Title>{`${depart} 부서`}</Title>
+          <TumblyLevel>
+            {getTumblyName(level)} 텀블리 {`(현재 ${percent}%)`}
+          </TumblyLevel>
           <Name>{name}</Name>
-        </FlexBox>
-        <TumblyLevel>
-          {getTumblyName(level)} 텀블리 {`(현재 ${percent}%)`}
-        </TumblyLevel>
-        <TotalCount>{`누적 ${total}잔`}</TotalCount>
-      </DepInfoContainer>
+        </DepInfoContainer>
+      </FlexBox>
+      <TotalCount>{`총 ${total}잔`}</TotalCount>
     </Container>
   );
 };
 
-RankItem.propTypes = {
+RankModalItem.propTypes = {
   level: PropTypes.number,
   depart: PropTypes.string,
   percent: PropTypes.number,
-  total: PropTypes.number,
   name: PropTypes.string,
+  total: PropTypes.number,
   rank: PropTypes.number,
 };
 
-export default RankItem;
+export default RankModalItem;
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  gap: 30px;
+  gap: 15px;
+
+  width: 100%;
 `;
 
 const Profile = styled.div`
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 12px;
 
   border: 1px solid #e3e3e3;
@@ -103,12 +105,20 @@ const Ranking = styled.div`
   }
 `;
 
+const FlexBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+`;
+
 const DepInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
-  gap: 5px;
+  gap: 10px;
 
   pre {
     font-family: Pretendard;
@@ -118,30 +128,24 @@ const DepInfoContainer = styled.div`
 `;
 
 const Title = styled.pre`
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 700;
 `;
 
-const FlexBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  width: 100%;
+const TumblyLevel = styled.pre`
+  font-size: 16px;
+  font-weight: 500;
 `;
 
 const Name = styled.pre`
   color: #9b9b9b;
-  font-size: 14px;
-`;
-
-const TumblyLevel = styled.pre`
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
+  letter-spacing: -1.2px;
 `;
 
 const TotalCount = styled.pre`
   color: #5277ff;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
 `;

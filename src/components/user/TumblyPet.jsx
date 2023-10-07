@@ -1,21 +1,32 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
+const position = ['', '인턴', '사원', '대리', '과장', '이사', '회장', ''];
+const fontColor = [
+  '',
+  '#FF8C68',
+  '#F05625',
+  '#498441',
+  '#5D5EA1',
+  '#3D8EDA',
+  '#31383E',
+];
+
 const TumblyPet = () => {
-  const getImage = level => `/images/tumbly${level}.svg`;
+  const [rate] = useState('89%');
+  const myLevel = 5;
 
-  const [rate] = useState('37%');
-
+  const getImage = useCallback(level => `/images/tumbly${level}.svg`, []);
   return (
     <Container>
-      <img src={getImage(1)} alt="tumbly" />
+      <img src={getImage(myLevel)} alt="tumbly" />
 
       <TumbyInfoContainer>
-        <Hierarchy>
-          <pre>{'인턴 텀블리'}</pre>
+        <Hierarchy background={fontColor[myLevel]}>
+          <pre>{`${position[myLevel]} 텀블리`}</pre>
         </Hierarchy>
-        <Name>{'멋쨍이 토마툐'}</Name>
-        <Department>{'DA 부서'}</Department>
+        <Name>{'에프지마 지구야'}</Name>
+        <Department>{'F 부서'}</Department>
       </TumbyInfoContainer>
 
       <GageContainer>
@@ -27,15 +38,17 @@ const TumblyPet = () => {
         </GageBar>
 
         <GageCaption>
-          <pre>{'인턴 텀블리'}</pre>
-          <pre>{'사원 텀블리'}</pre>
+          <pre>{`${position[myLevel]} 텀블리`}</pre>
+          <pre>{`${position[myLevel + 1]} 텀블리`}</pre>
         </GageCaption>
 
-        <RemainSign>
-          <pre>{'사원까지'}</pre>
-          <pre>{'190잔'}</pre>
-          <pre>{'남았어요'}</pre>
-        </RemainSign>
+        {myLevel < 6 && (
+          <RemainSign>
+            <pre>{`${position[myLevel + 1]}까지`}</pre>
+            <pre>{'7잔'}</pre>
+            <pre>{'남았어요'}</pre>
+          </RemainSign>
+        )}
       </GageContainer>
     </Container>
   );
@@ -58,8 +71,8 @@ const Container = styled.div`
   gap: 32px;
 
   img {
-    width: 60%;
-    height: 60%;
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -81,7 +94,7 @@ const Hierarchy = styled.div`
   gap: 10px;
 
   border-radius: 100px;
-  background: #5277ff;
+  background: ${({ background }) => background};
 
   pre {
     color: #fff;
@@ -165,7 +178,7 @@ const GageCaption = styled.div`
 
   pre {
     font-family: Pretendard;
-    font-size: 20px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -196,7 +209,7 @@ const RemainSign = styled.div`
 
   pre {
     color: #fff;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     line-height: normal;
 

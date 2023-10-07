@@ -26,6 +26,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
+  max-width: 1240px;
+  margin: auto;
   height: 100vh;
   padding: 30px;
 
@@ -39,7 +41,7 @@ const MainContainer = styled.div`
 
   width: 100%;
   gap: 30px;
-  height: calc(100vh - 210px);
+  height: calc(100vh - 260px);
 `;
 
 const RightBox = styled.div`

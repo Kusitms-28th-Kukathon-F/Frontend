@@ -1,43 +1,55 @@
 import styled from 'styled-components';
 import RankItem from './RankItem';
 import { IoIosArrowForward } from 'react-icons/io';
+import { useState } from 'react';
+import RankModal from './RankModal';
 
 const RankData = [
   {
-    level: 4,
-    depart: '비즈니스',
+    level: 5,
+    depart: 'F',
     percent: 30,
-    total: 86,
+    total: 313,
+    name: '에프지마 지구야',
   },
   {
-    level: 5,
-    depart: '디자인',
-    percent: 30,
-    total: 86,
+    level: 4,
+    depart: 'E',
+    percent: 14,
+    total: 201,
+    name: 'e편한세상',
   },
   {
     level: 3,
-    depart: '마케팅',
-    percent: 30,
-    total: 86,
+    depart: 'H',
+    percent: 96,
+    total: 190,
+    name: '하이팀',
   },
 ];
 
 const Rank = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const onClick = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <Container>
       <TitleContainer>
         <Title>랭킹</Title>
-        <ViewDetail>
+        <ViewDetail onClick={onClick}>
           <pre>상세보기</pre>
           <IoIosArrowForward style={{ color: '#BCBCBC' }} />
         </ViewDetail>
       </TitleContainer>
       <RankItemContainer>
-        {RankData.map(data => (
-          <RankItem {...data} key={data.depart} />
+        {RankData.map((data, idx) => (
+          <RankItem {...data} key={data.depart} rank={idx + 1} />
         ))}
       </RankItemContainer>
+      {isModalOpen && <RankModal setIsModalOpen={setIsModalOpen} />}
     </Container>
   );
 };
