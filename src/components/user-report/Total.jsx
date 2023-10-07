@@ -32,6 +32,7 @@ const Total = () => {
           </ListTxt>
         </ListItem>
       </List>
+      <Img src="/images/totalImg2.svg" />
     </Container>
   );
 };
@@ -39,6 +40,7 @@ const Total = () => {
 export default Total;
 
 const Container = styled.div`
+  position: relative;
   width: 50%;
   height: 400px;
   padding: 50px;
@@ -110,4 +112,11 @@ const ListTxtValue = styled.span`
 
   color: #5277ff;
   font-weight: 700;
+`;
+
+const Img = styled.img`
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  width: 30%;
 `;

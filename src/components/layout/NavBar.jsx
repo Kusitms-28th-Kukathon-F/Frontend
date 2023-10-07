@@ -1,23 +1,33 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { LoginState } from '../../state/login';
 
 const NavBar = () => {
-  const [isLogin] = useState(true);
+  const [loginState, setLoginState] = useRecoilState(LoginState);
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setLoginState(false);
+    alert('로그아웃 되었습니다.');
+    navigate('/');
+  };
+
   return (
     <Nav>
-      <NavContainer>
+      <NavContainer onClick={() => console.log(loginState)}>
         <img
           src="/icons/logo.svg"
           style={{ cursor: 'pointer' }}
           onClick={() => navigate('/')}
         />
-        {isLogin ? (
+        {loginState ? (
           <AuthContainer>
             <AuthBtn onClick={() => navigate('/user/report')}>
               마이리포트
             </AuthBtn>
+            <div>/</div>
+            <AuthBtn onClick={handleLogout}>로그아웃</AuthBtn>
           </AuthContainer>
         ) : (
           <AuthContainer>
