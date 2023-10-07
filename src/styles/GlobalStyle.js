@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
   border-collapse: collapse;
   text-decoration: none;
+  font-family: 'Pretendard', sans-serif;
 }
 
 article, aside, details, figcaption, figure, 
@@ -53,4 +54,5 @@ button {
 textarea:focus{
 	outline: none;
 }
+
 `;

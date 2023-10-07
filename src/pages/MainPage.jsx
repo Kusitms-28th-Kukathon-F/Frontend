@@ -1,8 +1,12 @@
-import MainComponent from '../components/MainComponent';
-
+import MainComponent from "../components/MainComponent";
+// import { IoIosArrowForward } from "react-icons/io";
 
 const MainPage = () => {
-  return <MainComponent/>;
+  return (
+    <>
+      <MainComponent />
+    </>
+  );
 };
 
 export default MainPage;

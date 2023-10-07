@@ -1,5 +1,9 @@
 const MainComponent = () => {
-  return <>Main Component Page</>;
+  return (
+    <>
+      <div>Main Component Page</div>
+    </>
+  );
 };
 
 export default MainComponent;

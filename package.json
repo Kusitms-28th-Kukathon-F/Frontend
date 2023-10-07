@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nivo/bar": "^0.83.0",
+    "@nivo/core": "^0.83.0",
+    "@nivo/pie": "^0.83.0",
     "axios": "^1.5.1",
     "emotion": "^11.0.0",
     "framer-motion": "^10.16.4",
@@ -20,7 +23,8 @@
     "react-kakao-maps-sdk": "^1.1.21",
     "react-router-dom": "^6.16.0",
     "recoil": "^0.7.7",
-    "styled-components": "^6.0.8"
+    "styled-components": "^6.0.8",
+    "styled-reset": "^4.5.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
