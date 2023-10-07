@@ -24,8 +24,28 @@ const UserReportPage = () => {
 export default UserReportPage;
 
 const Container = styled.div`
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1240px;
+  padding: 30px 0;
+
+  gap: 30px;
 `;
 
-const TopContainer = styled.div``;
+const TopContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+`;
 
-const BottomContainer = styled.div``;
+const BottomContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+`;
