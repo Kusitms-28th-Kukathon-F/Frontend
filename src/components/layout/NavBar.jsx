@@ -1,21 +1,29 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 const NavBar = () => {
   const [isLogin] = useState(true);
+  const navigate = useNavigate();
   return (
     <Nav>
       <NavContainer>
-        <img src="/icons/logo.svg" style={{ cursor: 'pointer' }} />
+        <img
+          src="/icons/logo.svg"
+          style={{ cursor: 'pointer' }}
+          onClick={() => navigate('/')}
+        />
         {isLogin ? (
           <AuthContainer>
-            <AuthBtn>마이리포트</AuthBtn>
+            <AuthBtn onClick={() => navigate('/user/report')}>
+              마이리포트
+            </AuthBtn>
           </AuthContainer>
         ) : (
           <AuthContainer>
-            <AuthBtn>로그인</AuthBtn>
+            <AuthBtn onClick={() => navigate('/login')}>로그인</AuthBtn>
             <div>/</div>
-            <AuthBtn>회원가입</AuthBtn>
+            <AuthBtn onClick={() => navigate('/login')}>회원가입</AuthBtn>
           </AuthContainer>
         )}
       </NavContainer>
