@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Loading from '../user/Loading';
 import RankModalItem from './RankModalItem';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -16,6 +17,7 @@ const nowDate = {
 };
 
 const RankModal = ({ setIsModalOpen }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [rankData, setRankData] = useState();
   const [date, setDate] = useState({
     year: new Date().getFullYear(),
@@ -24,6 +26,7 @@ const RankModal = ({ setIsModalOpen }) => {
 
   const fetchMonthRankData = async () => {
     const userId = 1;
+    setIsLoading(true);
     try {
       const res = await Axios.get(`/tumblers/history/month/${userId}`, {
         params: {
@@ -34,11 +37,14 @@ const RankModal = ({ setIsModalOpen }) => {
       setRankData(res?.data?.data);
     } catch (e) {
       console.error(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const fetchQuarterRankData = async () => {
     const userId = 1;
+    setIsLoading(true);
     try {
       const res = await Axios.get(`/tumblers/history/quarter/${userId}`, {
         params: {
@@ -50,6 +56,8 @@ const RankModal = ({ setIsModalOpen }) => {
       setRankData(res?.data?.data);
     } catch (e) {
       console.error(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -167,18 +175,24 @@ const RankModal = ({ setIsModalOpen }) => {
               </DateController>
             )}
             <RankItemContainer>
-              {rankData.map((data, idx) => (
-                <RankModalItem
-                  {...data}
-                  tumblerCount={
-                    selectedOption === 'monthly'
-                      ? data.tumblerCount
-                      : data.tumblerAverage
-                  }
-                  key={data.depart}
-                  rank={idx + 1}
-                />
-              ))}
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <>
+                  {rankData.map((data, idx) => (
+                    <RankModalItem
+                      {...data}
+                      tumblerCount={
+                        selectedOption === 'monthly'
+                          ? data.tumblerCount
+                          : data.tumblerAverage
+                      }
+                      key={data.depart}
+                      rank={idx + 1}
+                    />
+                  ))}
+                </>
+              )}
             </RankItemContainer>
           </Rank>
         )}
@@ -275,6 +289,8 @@ const RankItemContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+
+  position: relative;
 
   width: 100%;
   height: 320px;
