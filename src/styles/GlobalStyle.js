@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 * {
@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
   border-collapse: collapse;
   text-decoration: none;
+  font-family: 'Pretendard', sans-serif;
 }
 
 article, aside, details, figcaption, figure, 
@@ -16,6 +17,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
 	line-height: 1;
+
 }
 
 ol, ul, li {
@@ -52,4 +54,5 @@ button {
 textarea:focus{
 	outline: none;
 }
+
 `;
