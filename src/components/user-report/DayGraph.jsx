@@ -58,8 +58,8 @@ const DayGraph = () => {
           xScale={{ type: 'point' }}
           yScale={{
             type: 'linear',
-            min: '0',
-            max: '30',
+            min: 'auto',
+            max: 'auto',
             stacked: true,
             reverse: false,
           }}
