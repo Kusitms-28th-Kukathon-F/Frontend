@@ -20,35 +20,42 @@ const getTumblyName = level => {
   }
 };
 
-const RankModalItem = ({ level, depart, percent, name, total, rank }) => {
+const RankModalItem = ({
+  tumblerName,
+  deptName,
+  tumblerGrade,
+  tumblerPercent,
+  tumblerCount,
+  rank,
+}) => {
   return (
     <Container>
       <FlexBox>
         <Profile>
-          <img src={getImage(level)} alt="profile" />
+          <img src={getImage(tumblerGrade)} alt="profile" />
           <Ranking>
             <pre>{rank}</pre>
           </Ranking>
         </Profile>
         <DepInfoContainer>
-          <Title>{`${depart} 부서`}</Title>
+          <Title>{`${deptName} 부서`}</Title>
           <TumblyLevel>
-            {getTumblyName(level)} 텀블리 {`(현재 ${percent}%)`}
+            {getTumblyName(tumblerGrade)} 텀블리 {`(현재 ${tumblerPercent}%)`}
           </TumblyLevel>
-          <Name>{name}</Name>
+          <Name>{tumblerName}</Name>
         </DepInfoContainer>
       </FlexBox>
-      <TotalCount>{`총 ${total}잔`}</TotalCount>
+      <TotalCount>{`총 ${tumblerCount ? tumblerCount : 0}잔`}</TotalCount>
     </Container>
   );
 };
 
 RankModalItem.propTypes = {
-  level: PropTypes.number,
-  depart: PropTypes.string,
-  percent: PropTypes.number,
-  name: PropTypes.string,
-  total: PropTypes.number,
+  tumblerGrade: PropTypes.number,
+  deptName: PropTypes.string,
+  tumblerPercent: PropTypes.number,
+  tumblerName: PropTypes.string,
+  tumblerCount: PropTypes.number,
   rank: PropTypes.number,
 };
 

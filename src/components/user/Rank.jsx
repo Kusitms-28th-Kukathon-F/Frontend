@@ -3,32 +3,9 @@ import RankItem from './RankItem';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useState } from 'react';
 import RankModal from './RankModal';
+import PropTypes from 'prop-types';
 
-const RankData = [
-  {
-    level: 5,
-    depart: 'F',
-    percent: 30,
-    total: 313,
-    name: '에프지마 지구야',
-  },
-  {
-    level: 4,
-    depart: 'E',
-    percent: 14,
-    total: 201,
-    name: 'e편한세상',
-  },
-  {
-    level: 3,
-    depart: 'H',
-    percent: 96,
-    total: 190,
-    name: '하이팀',
-  },
-];
-
-const Rank = () => {
+const Rank = ({ rankList }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onClick = () => {
@@ -45,13 +22,17 @@ const Rank = () => {
         </ViewDetail>
       </TitleContainer>
       <RankItemContainer>
-        {RankData.map((data, idx) => (
-          <RankItem {...data} key={data.depart} rank={idx + 1} />
+        {rankList.map((data, idx) => (
+          <RankItem {...data} key={data.deptName} rank={idx + 1} />
         ))}
       </RankItemContainer>
       {isModalOpen && <RankModal setIsModalOpen={setIsModalOpen} />}
     </Container>
   );
+};
+
+Rank.propTypes = {
+  rankList: PropTypes.array,
 };
 
 export default Rank;

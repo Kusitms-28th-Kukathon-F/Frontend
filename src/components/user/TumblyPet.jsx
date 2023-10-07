@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const position = ['', '인턴', '사원', '대리', '과장', '이사', '회장', ''];
 const fontColor = [
@@ -12,46 +12,56 @@ const fontColor = [
   '#31383E',
 ];
 
-const TumblyPet = () => {
-  const [rate] = useState('89%');
-  const myLevel = 5;
-
-  const getImage = useCallback(level => `/images/tumbly${level}.svg`, []);
+const TumblyPet = ({
+  deptName,
+  tumblerGrade,
+  toGoalCount,
+  tumblerName,
+  tumblerPercent,
+}) => {
   return (
     <Container>
-      <img src={getImage(myLevel)} alt="tumbly" />
+      <img src={`/images/tumbly${tumblerGrade}.svg`} alt="tumbly" />
 
       <TumbyInfoContainer>
-        <Hierarchy background={fontColor[myLevel]}>
-          <pre>{`${position[myLevel]} 텀블리`}</pre>
+        <Hierarchy background={fontColor[tumblerGrade]}>
+          <pre>{`${position[tumblerGrade]} 텀블리`}</pre>
         </Hierarchy>
-        <Name>{'에프지마 지구야'}</Name>
-        <Department>{'F 부서'}</Department>
+        <Name>{`${tumblerName}`}</Name>
+        <Department>{`${deptName} 부서`}</Department>
       </TumbyInfoContainer>
 
       <GageContainer>
-        <Percentage percent={rate}>
-          <pre>{rate}</pre>
+        <Percentage percent={`${tumblerPercent}%`}>
+          <pre>{tumblerPercent}</pre>
         </Percentage>
         <GageBar>
-          <Gage width={rate} />
+          <Gage width={`${tumblerPercent}%`} />
         </GageBar>
 
         <GageCaption>
-          <pre>{`${position[myLevel]} 텀블리`}</pre>
-          <pre>{`${position[myLevel + 1]} 텀블리`}</pre>
+          <pre>{`${position[tumblerGrade]} 텀블리`}</pre>
+          <pre>{`${position[tumblerGrade + 1]} 텀블리`}</pre>
         </GageCaption>
 
-        {myLevel < 6 && (
+        {tumblerGrade < 6 && (
           <RemainSign>
-            <pre>{`${position[myLevel + 1]}까지`}</pre>
-            <pre>{'7잔'}</pre>
+            <pre>{`${position[tumblerGrade + 1]}까지`}</pre>
+            <pre>{`${toGoalCount}잔`}</pre>
             <pre>{'남았어요'}</pre>
           </RemainSign>
         )}
       </GageContainer>
     </Container>
   );
+};
+
+TumblyPet.propTypes = {
+  deptName: PropTypes.string,
+  tumblerGrade: PropTypes.number,
+  toGoalCount: PropTypes.number,
+  tumblerName: PropTypes.string,
+  tumblerPercent: PropTypes.number,
 };
 
 export default TumblyPet;
