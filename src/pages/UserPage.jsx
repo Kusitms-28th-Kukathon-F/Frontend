@@ -7,7 +7,7 @@ import Axios from '../apis';
 import { useEffect, useState } from 'react';
 
 const UserPage = () => {
-  const userId = 1;
+  const userId = 6;
 
   const [mainData, setMainData] = useState();
 
