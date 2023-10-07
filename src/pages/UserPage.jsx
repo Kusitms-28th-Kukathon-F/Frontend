@@ -55,7 +55,8 @@ const Container = styled.div`
 
   max-width: 1240px;
   margin: auto;
-  height: 100vh;
+  height: calc(100vh -50px);
+
   padding: 30px;
 
   gap: 30px;
