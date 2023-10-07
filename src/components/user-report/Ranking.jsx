@@ -1,11 +1,32 @@
+import { useEffect, useState } from 'react';
+import Axios from '../../apis';
 import styled from 'styled-components';
 
 const Ranking = () => {
-  const listData = [
-    ['23.10', '1등', '25잔'],
-    ['23.09', '3등', '68잔'],
-    ['23.08', '2등', '83잔'],
-  ];
+  const [rankData, setRankData] = useState([]);
+
+  const fetchRank = async () => {
+    await Axios.get(`/tumblers/history/rank/1`, {
+      params: {
+        period: '202310',
+      },
+    })
+      .then(res => {
+        console.log(res);
+        setRankData(
+          res.data.data.map(el => [
+            el.date,
+            `${el.rank}등`,
+            `${el.tumblerCount}잔`,
+          ]),
+        );
+      })
+      .catch(err => console.error(err));
+  };
+
+  useEffect(() => {
+    fetchRank();
+  }, []);
 
   return (
     <Container>
@@ -24,7 +45,7 @@ const Ranking = () => {
           </tr>
         </thead>
         <tbody>
-          {listData?.map((el, idx) => (
+          {rankData?.map((el, idx) => (
             <tr id={idx} key={idx}>
               {el?.map((element, index) => (
                 <TableCell key={index}>{element}</TableCell>
