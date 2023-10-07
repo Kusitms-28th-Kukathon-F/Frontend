@@ -25,7 +25,7 @@ const RankModal = ({ setIsModalOpen }) => {
   });
 
   const fetchMonthRankData = async () => {
-    const userId = 1;
+    const userId = 6;
     setIsLoading(true);
     try {
       const res = await Axios.get(`/tumblers/history/month/${userId}`, {
@@ -43,7 +43,7 @@ const RankModal = ({ setIsModalOpen }) => {
   };
 
   const fetchQuarterRankData = async () => {
-    const userId = 1;
+    const userId = 6;
     setIsLoading(true);
     try {
       const res = await Axios.get(`/tumblers/history/quarter/${userId}`, {
@@ -182,6 +182,7 @@ const RankModal = ({ setIsModalOpen }) => {
                   {rankData.map((data, idx) => (
                     <RankModalItem
                       {...data}
+                      selectedOption={selectedOption}
                       tumblerCount={
                         selectedOption === 'monthly'
                           ? data.tumblerCount

@@ -21,11 +21,14 @@ const TumblyPet = ({
 }) => {
   return (
     <Container>
-      <img src={`/images/tumbly${tumblerGrade}.svg`} alt="tumbly" />
+      <img
+        src={`/images/tumbly${tumblerGrade > 6 ? 6 : tumblerGrade}.svg`}
+        alt="tumbly"
+      />
 
       <TumbyInfoContainer>
-        <Hierarchy background={fontColor[tumblerGrade]}>
-          <pre>{`${position[tumblerGrade]} 텀블리`}</pre>
+        <Hierarchy background={fontColor[tumblerGrade > 6 ? 6 : tumblerGrade]}>
+          <pre>{`${position[tumblerGrade > 6 ? 6 : tumblerGrade]} 텀블리`}</pre>
         </Hierarchy>
         <Name>{`${tumblerName}`}</Name>
         <Department>{`${deptName} 부서`}</Department>
@@ -40,14 +43,16 @@ const TumblyPet = ({
         </GageBar>
 
         <GageCaption>
-          <pre>{`${position[tumblerGrade]} 텀블리`}</pre>
-          <pre>{`${position[tumblerGrade + 1]} 텀블리`}</pre>
+          <pre>{`${position[tumblerGrade > 6 ? 6 : tumblerGrade]} 텀블리`}</pre>
+          <pre>{`${
+            position[tumblerGrade > 6 ? 6 : tumblerGrade + 1]
+          } 텀블리`}</pre>
         </GageCaption>
 
         {tumblerGrade < 6 && (
           <RemainSign>
             <pre>{`${position[tumblerGrade + 1]}까지`}</pre>
-            <pre>{`${toGoalCount}잔`}</pre>
+            <pre>{`${toGoalCount <= 0 ? 0 : toGoalCount}잔`}</pre>
             <pre>{'남았어요'}</pre>
           </RemainSign>
         )}

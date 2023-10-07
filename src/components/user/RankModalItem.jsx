@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const getImage = level => `/images/tumbly-profile${level}.svg`;
+const getImage = (selectedOption, level) =>
+  selectedOption === 'monthly'
+    ? `/images/tumbly-profile${level}.svg`
+    : `/images/tumbly-group${level}.svg`;
 
 const getTumblyName = level => {
   switch (level) {
@@ -27,12 +30,16 @@ const RankModalItem = ({
   tumblerPercent,
   tumblerCount,
   rank,
+  selectedOption,
 }) => {
   return (
     <Container>
       <FlexBox>
-        <Profile>
-          <img src={getImage(tumblerGrade)} alt="profile" />
+        <Profile selectedOption={selectedOption}>
+          <img
+            src={getImage(selectedOption, tumblerGrade > 6 ? 6 : tumblerGrade)}
+            alt="profile"
+          />
           <Ranking>
             <pre>{rank}</pre>
           </Ranking>
@@ -40,7 +47,8 @@ const RankModalItem = ({
         <DepInfoContainer>
           <Title>{`${deptName} 부서`}</Title>
           <TumblyLevel>
-            {getTumblyName(tumblerGrade)} 텀블리 {`(현재 ${tumblerPercent}%)`}
+            {getTumblyName(tumblerGrade > 6 ? 6 : tumblerGrade)} 텀블리{' '}
+            {`(현재 ${tumblerPercent}%)`}
           </TumblyLevel>
           <Name>{tumblerName}</Name>
         </DepInfoContainer>
@@ -57,6 +65,7 @@ RankModalItem.propTypes = {
   tumblerName: PropTypes.string,
   tumblerCount: PropTypes.number,
   rank: PropTypes.number,
+  selectedOption: PropTypes.bool,
 };
 
 export default RankModalItem;
@@ -72,7 +81,8 @@ const Container = styled.div`
 `;
 
 const Profile = styled.div`
-  width: 100px;
+  width: ${({ selectedOption }) =>
+    selectedOption === 'monthly' ? '100px' : '150px'};
   height: 100px;
   border-radius: 12px;
 
