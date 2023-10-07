@@ -1,8 +1,5 @@
-import MainComponent from '../components/MainComponent';
-
-
 const MainPage = () => {
-  return <MainComponent/>;
+  return <>메인 페이지에요</>;
 };
 
 export default MainPage;
