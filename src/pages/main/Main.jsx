@@ -38,8 +38,10 @@ const MainContainer = styled.div`
   justify-content: space-between;
 
   width: 100%;
-  max-height: calc(100vh - 210px);
+  gap: 30px;
+  height: calc(100vh - 210px);
 `;
+
 const RightBox = styled.div`
   display: flex;
   flex-direction: column;

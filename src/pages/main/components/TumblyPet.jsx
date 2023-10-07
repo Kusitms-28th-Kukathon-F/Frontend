@@ -48,7 +48,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  width: 60%;
+  width: 100%;
+  height: 100%;
   padding: 50px;
 
   border-radius: 30px;
@@ -57,7 +58,8 @@ const Container = styled.div`
   gap: 32px;
 
   img {
-    width: 80%;
+    width: 60%;
+    height: 60%;
   }
 `;
 
@@ -66,7 +68,9 @@ const TumbyInfoContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  gap: 20px;
+  height: 100%;
+
+  gap: 10px;
 `;
 
 const Hierarchy = styled.div`
@@ -102,7 +106,7 @@ const Name = styled.pre`
 const Department = styled.pre`
   color: #bcbcbc;
   font-family: Pretendard;
-  font-size: 24px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -116,7 +120,6 @@ const GageContainer = styled.div`
   position: relative;
 
   width: 100%;
-  padding: 20px 50px;
   gap: 12px;
 `;
 
@@ -206,7 +209,7 @@ const RemainSign = styled.div`
     content: '';
     position: absolute;
     bottom: -10px;
-    left: 70%;
+    left: 90%;
     margin-left: -10px; /* Adjust this value to position the triangle */
     border-width: 10px 10px 0;
     border-style: solid;
