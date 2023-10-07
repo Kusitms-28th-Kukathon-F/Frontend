@@ -9,7 +9,7 @@ const NavBar = () => {
         <img src="/icons/logo.svg" style={{ cursor: 'pointer' }} />
         {isLogin ? (
           <AuthContainer>
-            <AuthBtn>대시보드(워딩 바뀐데요)</AuthBtn>
+            <AuthBtn>마이리포트</AuthBtn>
           </AuthContainer>
         ) : (
           <AuthContainer>
