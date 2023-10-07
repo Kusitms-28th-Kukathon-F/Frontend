@@ -4,57 +4,56 @@ import RankModalItem from './RankModalItem';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { AiOutlineClose } from 'react-icons/ai';
 import PropTypes from 'prop-types';
+import Axios from '../../apis';
 
 const nowDate = {
-  year: new Date().getFullYear(),
-  month: new Date().getMonth(),
+  nowYear: new Date().getFullYear(),
+  nowMonth: new Date().getMonth() + 1,
+  startPeriodYear: '2023',
+  endPeriodYear: '2023',
+  startPeriodMonth: '07',
+  endPeriodMonth: '09',
 };
 
 const RankModal = ({ setIsModalOpen }) => {
+  const [rankData, setRankData] = useState();
   const [date, setDate] = useState({
     year: new Date().getFullYear(),
-    month: new Date().getMonth(),
+    month: new Date().getMonth() + 1,
   });
 
-  const [selectedOption, setSelectedOption] = useState('monthly');
+  const fetchMonthRankData = async () => {
+    const userId = 1;
+    try {
+      const res = await Axios.get(`/tumblers/history/month/${userId}`, {
+        params: {
+          userId,
+          period: `${date.year}${date.month < 10 ? '0' : ''}${date.month}`,
+        },
+      });
+      setRankData(res?.data?.data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
-  const [rankData] = useState([
-    {
-      level: 5,
-      depart: 'F',
-      percent: 30,
-      name: '돈미새',
-      total: 86,
-    },
-    {
-      level: 5,
-      depart: '디자인',
-      percent: 30,
-      name: '10만팔로워',
-      total: 86,
-    },
-    {
-      level: 3,
-      depart: '마케팅',
-      percent: 30,
-      name: '거북목패밀리',
-      total: 86,
-    },
-    {
-      level: 3,
-      depart: '마케팅',
-      percent: 30,
-      name: '거북목패밀리',
-      total: 86,
-    },
-    {
-      level: 3,
-      depart: '마케팅',
-      percent: 30,
-      name: '거북목패밀리',
-      total: 86,
-    },
-  ]);
+  const fetchQuarterRankData = async () => {
+    const userId = 1;
+    try {
+      const res = await Axios.get(`/tumblers/history/quarter/${userId}`, {
+        params: {
+          userId,
+          startPeriod: `${nowDate.startPeriodYear}${nowDate.startPeriodMonth}`,
+          endPeriod: `${nowDate.endPeriodYear}${nowDate.endPeriodMonth}`,
+        },
+      });
+      setRankData(res?.data?.data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const [selectedOption, setSelectedOption] = useState('monthly');
 
   const onClickBack = () => {
     setDate(prev => {
@@ -72,7 +71,11 @@ const RankModal = ({ setIsModalOpen }) => {
   const onClickForward = () => {
     setDate(prev => {
       const prevDate = { ...prev };
-
+      if (
+        prevDate.year === nowDate.nowYear &&
+        prevDate.month === nowDate.nowMonth
+      )
+        return prevDate;
       if (prevDate.month === 12) {
         prevDate.year += 1;
         prevDate.month = 1;
@@ -90,87 +93,95 @@ const RankModal = ({ setIsModalOpen }) => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {}, [date]);
+  useEffect(() => {
+    if (selectedOption === 'monthly') fetchMonthRankData();
+    else fetchQuarterRankData();
+  }, [date, selectedOption]);
 
   return (
     <Container>
       <RankWrapper>
         <Cover />
-        <Rank>
-          <RankHeader>
-            <RadioContainer>
-              <label
-                style={{
-                  color: selectedOption === 'monthly' ? '#5277ff' : '#444',
-                }}
-              >
-                <input
-                  type="radio"
-                  name="radioGroup" // 같은 그룹으로 묶음
-                  value="monthly"
-                  checked={selectedOption === 'monthly'} // 체크 여부 확인
-                  onChange={handleOptionChange}
-                />
-                월별
-              </label>
-              <label
-                style={{
-                  color: selectedOption === 'quarterly' ? '#5277ff' : '#444',
-                }}
-              >
-                <input
-                  type="radio"
-                  name="radioGroup" // 같은 그룹으로 묶음
-                  value="quarterly"
-                  checked={selectedOption === 'quarterly'} // 체크 여부 확인
-                  onChange={handleOptionChange}
-                />
-                분기별
-              </label>
-            </RadioContainer>
-            <AiOutlineClose
-              onClick={handleCloseModal}
-              style={{ fontSize: '20px', zIndex: '3', cursor: 'pointer' }}
-            />
-          </RankHeader>
-          {selectedOption === 'monthly' && (
-            <DateController>
-              <IoIosArrowBack
-                style={{
-                  fontSize: '24px',
-                  color: '#5277FF',
-                  cursor: 'pointer',
-                }}
-                onClick={onClickBack}
+        {rankData?.length > 0 && (
+          <Rank>
+            <RankHeader>
+              <RadioContainer>
+                <label
+                  style={{
+                    color: selectedOption === 'monthly' ? '#5277ff' : '#444',
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="radioGroup" // 같은 그룹으로 묶음
+                    value="monthly"
+                    checked={selectedOption === 'monthly'} // 체크 여부 확인
+                    onChange={handleOptionChange}
+                  />
+                  월별
+                </label>
+                <label
+                  style={{
+                    color: selectedOption === 'quarterly' ? '#5277ff' : '#444',
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="radioGroup" // 같은 그룹으로 묶음
+                    value="quarterly"
+                    checked={selectedOption === 'quarterly'} // 체크 여부 확인
+                    onChange={handleOptionChange}
+                  />
+                  분기별
+                </label>
+              </RadioContainer>
+              <AiOutlineClose
+                onClick={handleCloseModal}
+                style={{ fontSize: '20px', zIndex: '3', cursor: 'pointer' }}
               />
-              <NowDate>{`${date.year}년 ${date.month}월`}</NowDate>
-              <IoIosArrowForward
-                style={{
-                  fontSize: '24px',
-                  color: '#5277FF',
-                  cursor: 'pointer',
-                }}
-                onClick={onClickForward}
-              />
-            </DateController>
-          )}
-          {selectedOption === 'quarterly' && (
-            <DateController>
-              <NowDate>{`${
-                nowDate.month - 3 > 0 ? nowDate.year : nowDate.year - 1
-              }년 ${
-                nowDate.month - 3 > 0
-                  ? nowDate.month - 3
-                  : 12 - (3 - nowDate.month)
-              }월 ~ ${nowDate.year}년 ${nowDate.month}일`}</NowDate>
-            </DateController>
-          )}
-          <RankItemContainer>
-            {rankData.map((data, idx) => (
-              <RankModalItem {...data} key={data.depart} rank={idx + 1} />
-            ))}
-          </RankItemContainer>
-        </Rank>
+            </RankHeader>
+            {selectedOption === 'monthly' && (
+              <DateController>
+                <IoIosArrowBack
+                  style={{
+                    fontSize: '24px',
+                    color: '#5277FF',
+                    cursor: 'pointer',
+                  }}
+                  onClick={onClickBack}
+                />
+                <NowDate>{`${date.year}년 ${date.month}월`}</NowDate>
+                <IoIosArrowForward
+                  style={{
+                    fontSize: '24px',
+                    color: '#5277FF',
+                    cursor: 'pointer',
+                  }}
+                  onClick={onClickForward}
+                />
+              </DateController>
+            )}
+            {selectedOption === 'quarterly' && (
+              <DateController>
+                <NowDate>{`${nowDate.startPeriodYear}년 ${nowDate.startPeriodMonth}월 ~ ${nowDate.endPeriodYear}년 ${nowDate.endPeriodMonth}일`}</NowDate>
+              </DateController>
+            )}
+            <RankItemContainer>
+              {rankData.map((data, idx) => (
+                <RankModalItem
+                  {...data}
+                  tumblerCount={
+                    selectedOption === 'monthly'
+                      ? data.tumblerCount
+                      : data.tumblerAverage
+                  }
+                  key={data.depart}
+                  rank={idx + 1}
+                />
+              ))}
+            </RankItemContainer>
+          </Rank>
+        )}
       </RankWrapper>
     </Container>
   );

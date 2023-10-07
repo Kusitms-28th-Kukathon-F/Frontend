@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const getImage = level => `/images/tumbly-profile${level}.svg`;
-
 const getTumblyName = level => {
   switch (level) {
     case 1:
@@ -20,35 +18,42 @@ const getTumblyName = level => {
   }
 };
 
-const RankItem = ({ level, depart, percent, total, name, rank }) => {
+const RankItem = ({
+  tumblerName,
+  deptName,
+  tumblerGrade,
+  tumblerPercent,
+  tumblerCount,
+  rank,
+}) => {
   return (
     <Container>
       <Profile>
-        <img src={getImage(level)} alt="profile" />
+        <img src={`/images/tumbly-profile${tumblerGrade}.svg`} alt="profile" />
         <Ranking>
           <pre>{rank}</pre>
         </Ranking>
       </Profile>
       <DepInfoContainer>
         <FlexBox>
-          <Title>{`${depart} 부서`}</Title>
-          <Name>{name}</Name>
+          <Title>{`${deptName} 부서`}</Title>
+          <Name>{tumblerName}</Name>
         </FlexBox>
         <TumblyLevel>
-          {getTumblyName(level)} 텀블리 {`(현재 ${percent}%)`}
+          {getTumblyName(tumblerGrade)} 텀블리 {`(현재 ${tumblerPercent}%)`}
         </TumblyLevel>
-        <TotalCount>{`누적 ${total}잔`}</TotalCount>
+        <TotalCount>{`누적 ${tumblerCount}잔`}</TotalCount>
       </DepInfoContainer>
     </Container>
   );
 };
 
 RankItem.propTypes = {
-  level: PropTypes.number,
-  depart: PropTypes.string,
-  percent: PropTypes.number,
-  total: PropTypes.number,
-  name: PropTypes.string,
+  tumblerGrade: PropTypes.number,
+  deptName: PropTypes.string,
+  tumblerPercent: PropTypes.number,
+  tumblerName: PropTypes.string,
+  tumblerCount: PropTypes.number,
   rank: PropTypes.number,
 };
 
