@@ -1,30 +1,33 @@
 import styled from 'styled-components';
-import CoffeeImage from '/images/coffee.svg';
 import Tumbly from '/images/reward-tumbly.svg';
 
 const RewardData = [
   {
     remain: 'D-19',
     content: '11월 1등 리워드는 팀 커피이용권',
+    iconUrl: '/images/coffee.svg',
   },
   {
     remain: 'D-121',
-    content: '2023년 하반기 리워드는 크루즈 여행권',
+    content: '2023년 하반기 리워드는 외식 상품권',
+    iconUrl: '/images/dish.svg',
   },
 ];
 
 const Reward = () => {
   return (
     <Container>
-      {RewardData.map(({ remain, content }, idx) => (
-        <RewardContainer key={idx}>
-          <RewardImageWrapper>
-            <img src={CoffeeImage} alt="coffee" />
-          </RewardImageWrapper>
-          <RemainDays>{remain}</RemainDays>
-          <RewardText>{content}</RewardText>
-        </RewardContainer>
-      ))}
+      <FlexBox>
+        {RewardData.map(({ remain, content, iconUrl }, idx) => (
+          <RewardContainer key={idx}>
+            <RewardImageWrapper>
+              <img src={iconUrl} alt="coffee" />
+            </RewardImageWrapper>
+            <RemainDays>{remain}</RemainDays>
+            <RewardText>{content}</RewardText>
+          </RewardContainer>
+        ))}
+      </FlexBox>
       <ImageWrapper>
         <img
           src={Tumbly}
@@ -59,20 +62,40 @@ const RewardContainer = styled.div`
   align-items: center;
   justify-content: center;
 
+  height: 100%;
+
   position: relative;
   z-index: 2;
 
   gap: 20px;
 `;
 
+const FlexBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 85%;
+`;
+
 const RewardImageWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  /* padding: 5px; */
+
+  width: 50px;
+  height: 50px;
+
   padding: 5px;
 
   border-radius: 18px;
   background: #faf5ee;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const RemainDays = styled.pre`
