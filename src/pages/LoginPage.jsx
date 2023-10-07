@@ -19,10 +19,15 @@ const LoginPage = () => {
     })
       .then(res => {
         console.log(res);
-        if (res.data.data.userRole === 'DEPARTMENT') navigate('/user');
-        if (res.data.data.userRole === 'CAFE') navigate('/');
-        if (res.data.data.userRole === 'COMPANY') navigate('/');
-        setLoginState(true);
+        const value = res.data.data;
+        if (value.userRole === 'DEPARTMENT') navigate('/user');
+        if (value.userRole === 'CAFE') navigate('/cafe');
+        if (value.userRole === 'COMPANY') navigate('/');
+        setLoginState({
+          isLogin: true,
+          userId: value.userId,
+          userRole: value.userRole,
+        });
       })
       .catch(err => console.error(err));
   };
@@ -41,6 +46,7 @@ const LoginPage = () => {
         <InputTitle>비밀번호</InputTitle>
         <Input
           placeholder="영문,숫자,특수문자를 사용한 8~20자"
+          type="password"
           onChange={e => setPassword(e.target.value)}
         />
         <LoginBtn>로그인</LoginBtn>
