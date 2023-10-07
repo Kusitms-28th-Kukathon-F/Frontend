@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Key from './Key';
 import { useState } from 'react';
 import Axios from '../../apis';
-import { useNavigate } from 'react-router';
 
 const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '←', '0'];
 

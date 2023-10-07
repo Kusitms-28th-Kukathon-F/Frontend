@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router';
 import { IoMdClose } from 'react-icons/io';
 import StarbucksLogo from '/images/starbucks.svg';
 import KeyPad from '../components/cafe/KeyPad';

@@ -29,7 +29,12 @@ const RankItem = ({
   return (
     <Container>
       <Profile>
-        <img src={`/images/tumbly-profile${tumblerGrade}.svg`} alt="profile" />
+        <img
+          src={`/images/tumbly-profile${
+            tumblerGrade > 6 ? 6 : tumblerGrade
+          }.svg`}
+          alt="profile"
+        />
         <Ranking>
           <pre>{rank}</pre>
         </Ranking>
@@ -40,7 +45,8 @@ const RankItem = ({
           <Name>{tumblerName}</Name>
         </FlexBox>
         <TumblyLevel>
-          {getTumblyName(tumblerGrade)} 텀블리 {`(현재 ${tumblerPercent}%)`}
+          {getTumblyName(tumblerGrade > 6 ? 6 : tumblerGrade)} 텀블리{' '}
+          {`(현재 ${tumblerPercent}%)`}
         </TumblyLevel>
         <TotalCount>{`누적 ${tumblerCount}잔`}</TotalCount>
       </DepInfoContainer>
