@@ -1,7 +1,35 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 const Info = () => {
-  const imgSrc = ['/images/report1.svg', '/images/report2.svg', '/images/report3.svg'];
+  const imgSrc = [
+    '/images/report1.svg',
+    '/images/report2.svg',
+    '/images/report3.svg',
+  ];
+
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { y: 15, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
 
   return (
     <Container>
@@ -16,10 +44,10 @@ const Info = () => {
         </Title>
       </TitleContainer>
       <UnderLine />
-      <ImgsContainer>
+      <ImgsContainer initial="hidden" animate="visible" variants={container}>
         {imgSrc.map((el, idx) => (
-          <ImgWrapper key={idx}>
-            <Img src={el}/>
+          <ImgWrapper key={idx} variants={item}>
+            <Img src={el} />
           </ImgWrapper>
         ))}
       </ImgsContainer>
@@ -84,14 +112,14 @@ const UnderLine = styled.div`
   margin-bottom: 2rem;
 `;
 
-const ImgsContainer = styled.div`
+const ImgsContainer = styled(motion.div)`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const ImgWrapper = styled.div`
+const ImgWrapper = styled(motion.div)`
   width: 30%;
   height: 250px;
   border-radius: 20px;
@@ -101,7 +129,7 @@ const ImgWrapper = styled.div`
 `;
 
 const Img = styled.img`
-    width: 100%;
-    height: 100%; 
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 `;
