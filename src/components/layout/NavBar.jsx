@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { LoginState } from '../../state/login';
 
 const NavBar = () => {
+
   const [loginState, setLoginState] = useRecoilState(LoginState);
   const navigate = useNavigate();
   const location = useLocation();

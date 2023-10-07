@@ -1,58 +1,51 @@
 import styled from 'styled-components';
 import { ResponsiveLine } from '@nivo/line';
+import Axios from '../../apis';
+import { useState, useEffect } from 'react';
 
 const MonthGraph = () => {
-    const data = [
-        {
-          id: '잔 수',
-          color: '#5277FF',
-          data: [
-            {
-              x: '5월',
-              y: 150,
-            },
-            {
-              x: '6월',
-              y: 180,
-            },
-            {
-              x: '7월',
-              y: 220,
-            },
-            {
-              x: '8월',
-              y: 80,
-            },
-            {
-              x: '9월',
-              y: 200,
-            },
-            {
-              x: '10월',
-              y: 280,
-            },
-          ],
-        },
-      ];
+  const [graphData, setGraphData] = useState([]);
+
+  const fetchMonthGraph = async () => {
+    await Axios.get(`/tumblers/history/graph/1`, {
+      params: {
+        period: '202310',
+      },
+    })
+      .then(res => {
+        console.log(res);
+        setGraphData([
+          {
+            id: '잔 수',
+            data: [...res.data.data],
+          },
+        ]);
+      })
+      .catch(err => console.error(err));
+  };
+
+  useEffect(() => {
+    fetchMonthGraph();
+  }, []);
+  
   return (
     <Container>
       <TitleContainer>
         <TitleLeft>
-        <TitleImg src="/icons/monthGraphImg.svg" />
-        <Title>지금까지 얼마나 아꼈을까요?</Title>
-
+          <TitleImg src="/icons/monthGraphImg.svg" />
+          <Title>지금까지 얼마나 아꼈을까요?</Title>
         </TitleLeft>
         <SubTitle>분기 기준</SubTitle>
       </TitleContainer>
       <div style={{ width: '100%', height: '250px', margin: '0' }}>
         <ResponsiveLine
-          data={data}
+          data={graphData}
           margin={{ top: 10, right: 15, bottom: 25, left: 30 }}
           xScale={{ type: 'point' }}
           yScale={{
             type: 'linear',
-            min: '0',
-            max: '300',
+            min: 'auto',
+            max: 'auto',
             stacked: true,
             reverse: false,
           }}
