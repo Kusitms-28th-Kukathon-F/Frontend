@@ -1,12 +1,5 @@
-import MainComponent from "../components/MainComponent";
-// import { IoIosArrowForward } from "react-icons/io";
-
 const MainPage = () => {
-  return (
-    <>
-      <MainComponent />
-    </>
-  );
+  return <>메인 페이지에요</>;
 };
 
 export default MainPage;
