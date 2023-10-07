@@ -1,6 +1,30 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 const Total = () => {
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { y: 15, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
+
   return (
     <Container>
       <TopTxt>이번 달 리포트</TopTxt>
@@ -9,22 +33,22 @@ const Total = () => {
         <Title>10월 동안 F부서는...</Title>
       </TitleContainer>
       <UnderLine />
-      <List>
-        <ListItem>
+      <List initial="hidden" animate="visible" variants={container}>
+        <ListItem variants={item}>
           <ListTxt>
             <span>- 하루 평균 텀블러를</span>
             <ListTxtValue>2.5잔</ListTxtValue>
             <span>썼어요</span>
           </ListTxt>
         </ListItem>
-        <ListItem>
+        <ListItem variants={item}>
           <ListTxt>
             <span>- 지난 달에 비해</span>
             <ListTxtValue>2%</ListTxtValue>
             <span>줄였어요</span>
           </ListTxt>
         </ListItem>
-        <ListItem>
+        <ListItem variants={item}>
           <ListTxt>
             <span>- 지난 달에 비해</span>
             <ListTxtValue>2등</ListTxtValue>
@@ -83,13 +107,13 @@ const UnderLine = styled.div`
   margin-bottom: 1.5rem;
 `;
 
-const List = styled.ul`
+const List = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 1rem;
 `;
 
-const ListItem = styled.li`
+const ListItem = styled(motion.div)`
   display: flex;
   align-items: center;
   gap: 10px;
