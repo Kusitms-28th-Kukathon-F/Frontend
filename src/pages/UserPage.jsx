@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import Reward from './components/Reward';
-import TumblyPet from './components/TumblyPet';
-import Rank from './components/Rank';
-import Community from './components/Community';
+import Reward from '../components/user/Reward';
+import TumblyPet from '../components/user/TumblyPet';
+import Rank from '../components/user/Rank';
+import Community from '../components/user/Community';
 
-const Main = () => {
+const UserPage = () => {
   return (
     <Container>
       <Reward />
@@ -19,7 +19,7 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default UserPage;
 
 const Container = styled.div`
   display: flex;
