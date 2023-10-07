@@ -10,7 +10,7 @@ const NavBar = () => {
   const pathname = location.pathname;
 
   const handleLogout = () => {
-    setLoginState(false);
+    setLoginState({});
     alert('로그아웃 되었습니다.');
     navigate('/');
   };
@@ -18,31 +18,51 @@ const NavBar = () => {
   return (
     <Nav>
       <NavContainer onClick={() => console.log(pathname)}>
-        <img
-          src="/icons/logo.svg"
-          style={{ cursor: 'pointer' }}
-          onClick={() => navigate('/')}
-        />
-        {loginState ? (
-          <AuthContainer>
-            <AuthBtn
-              onClick={() => {
-                pathname === '/user'
-                  ? navigate('/user/report')
-                  : navigate('/user');
-              }}
-            >
-              {pathname === '/user' ? '마이리포트' : '마이페이지'}
-            </AuthBtn>
-            <div>/</div>
-            <AuthBtn onClick={handleLogout}>로그아웃</AuthBtn>
-          </AuthContainer>
+        {loginState.isLogin ? (
+          loginState.userRole === 'DEPARTMENT' ? (
+            <>
+              <img
+                src="/icons/logo.svg"
+                style={{ cursor: 'pointer' }}
+                onClick={() => navigate('/')}
+              />
+              <AuthContainer>
+                <AuthBtn
+                  onClick={() => {
+                    pathname === '/user'
+                      ? navigate('/user/report')
+                      : navigate('/user');
+                  }}
+                >
+                  {pathname === '/user' ? '마이리포트' : '마이페이지'}
+                </AuthBtn>
+                <div>/</div>
+                <AuthBtn onClick={handleLogout}>로그아웃</AuthBtn>
+              </AuthContainer>
+            </>
+          ) : (
+            <>
+              <img
+                src="/icons/logo.svg"
+                style={{ cursor: 'pointer' }}
+                onClick={() => navigate('/')}
+              />
+              <AuthBtn onClick={handleLogout}>로그아웃</AuthBtn>
+            </>
+          )
         ) : (
-          <AuthContainer>
-            <AuthBtn onClick={() => navigate('/login')}>로그인</AuthBtn>
-            <div>/</div>
-            <AuthBtn onClick={() => navigate('/login')}>회원가입</AuthBtn>
-          </AuthContainer>
+          <>
+            <img
+              src="/icons/logo.svg"
+              style={{ cursor: 'pointer' }}
+              onClick={() => navigate('/')}
+            />
+            <AuthContainer>
+              <AuthBtn onClick={() => navigate('/login')}>로그인</AuthBtn>
+              <div>/</div>
+              <AuthBtn onClick={() => navigate('/login')}>회원가입</AuthBtn>
+            </AuthContainer>
+          </>
         )}
       </NavContainer>
     </Nav>
