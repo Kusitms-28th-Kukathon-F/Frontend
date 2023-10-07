@@ -18,6 +18,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
   background: #EAF2FF;
+  overflow-y: hidden;
 }
 
 ol, ul, li {
