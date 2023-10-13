@@ -65,9 +65,9 @@ https://github.com/Kusitms-28th-Kukathon-F/Frontend/assets/97966640/fe76862b-96a
 
 ### 📕 커밋 컨벤션
 
-커밋 메세지는 <b>[이슈번호, 기능 키워드, 커밋 내용]</b>으로 작성할 것!
+커밋 메세지는 <b>[기능 키워드, 커밋 내용]</b>으로 작성할 것!
 
-ex) `git commit -m "#8 feat : 앱 설치 플로팅 배너 추가 `
+ex) `git commit -m "feat: 분기별 랭킹 화면 추가`
 
 - `feat` : 새로운 기능 추가
 - `fix` : 버그 수정
