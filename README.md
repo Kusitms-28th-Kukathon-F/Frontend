@@ -1,5 +1,6 @@
 # Backend
 ## 큐시즘 28기 해커톤 F팀 "텀블러 키우기(텀블리)"
+![landing9](https://github.com/Kusitms-28th-Kukathon-F/Frontend/assets/97966640/be660925-d517-4ffa-9bad-5a72bb18478c)
 
 <br>
 
